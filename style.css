@@ -1,5 +1,6 @@
 
 html{color-scheme: only light}
+html[data-theme="dark"]{color-scheme: dark}
 :root{
   --ink:#111318; --ink-2:#3a4049; --ink-3:#6d727a;
   --bg:#f2f3f5; --card:#ffffff; --rule:#d8dadd; --rule-2:#e8eaec;
@@ -327,3 +328,23 @@ code{font-family:ui-monospace,monospace; font-size:.9em; background:var(--bg); p
   .ticker .items{overflow-x:auto}
 }
 @media (max-width:767px){ .ticker .track{padding:9px 0; animation-duration:45s} }
+
+/* כהה — רק בבחירה מפורשת של הקורא */
+:root[data-theme="dark"]{
+  --ink:#e9e7e2; --ink-2:#b7b3ac; --ink-3:#8b8781;
+  --bg:#131519; --card:#1b1e23; --rule:#33383f; --rule-2:#262b31;
+  --red:#e4685c; --red-dark:#c9584d; --red-soft:#2f1d1a;
+  --find:#7fb8d8; --find-soft:#17272f;
+  --claim:#d8b45f; --claim-soft:#292314;
+  --doc:#7cc39a; --doc-soft:#182620;
+  --pend:#d489bd; --pend-soft:#2b1a25;
+  --tileA:#27415a; --tileB:#6d2f2c; --tileC:#265542;
+}
+/* כפתור מצב תצוגה */
+.theme-btn{border:1px solid var(--rule); background:var(--card); color:var(--ink);
+  border-radius:50%; width:34px; height:34px; font-size:15px; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; flex:none}
+.theme-btn:hover{border-color:var(--red); color:var(--red)}
+.masthead{position:relative}
+.masthead .theme-btn{position:absolute; inset-inline-end:0; top:14px}
+@media (max-width:767px){ .masthead .theme-btn{top:8px} }
