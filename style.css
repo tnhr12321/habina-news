@@ -1,4 +1,5 @@
 
+html{color-scheme: only light}
 :root{
   --ink:#111318; --ink-2:#3a4049; --ink-3:#6d727a;
   --bg:#f2f3f5; --card:#ffffff; --rule:#d8dadd; --rule-2:#e8eaec;
@@ -10,16 +11,6 @@
   --tileA:#20364a; --tileB:#5f2321; --tileC:#1f4634;
 }
 /* בהיר כברירת מחדל (החלטת אמיר) — כהה רק בבחירה מפורשת */
-:root[data-theme="dark"]{
-  --ink:#e9e7e2; --ink-2:#b7b3ac; --ink-3:#8b8781;
-  --bg:#131519; --card:#1b1e23; --rule:#33383f; --rule-2:#262b31;
-  --red:#e4685c; --red-dark:#c9584d; --red-soft:#2f1d1a;
-  --find:#7fb8d8; --find-soft:#17272f;
-  --claim:#d8b45f; --claim-soft:#292314;
-  --doc:#7cc39a; --doc-soft:#182620;
-  --pend:#d489bd; --pend-soft:#2b1a25;
-  --tileA:#27415a; --tileB:#6d2f2c; --tileC:#265542;
-}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
@@ -322,3 +313,17 @@ code{font-family:ui-monospace,monospace; font-size:.9em; background:var(--bg); p
   .artpage .article p{font-size:17px; line-height:1.68}
   .artpage .article h2{font-size:26px}
 }
+
+/* מבזקים רצים */
+.ticker .items{overflow:hidden; padding:0}
+.ticker .track{display:inline-block; white-space:nowrap; padding:7px 0; will-change:transform;
+  animation:tickmove 55s linear infinite}
+.ticker:hover .track,.ticker:active .track{animation-play-state:paused}
+.ticker .track a{padding:0 2px}
+.ticker .track a:hover b{text-decoration:underline}
+@keyframes tickmove{from{transform:translateX(0)}to{transform:translateX(50%)}}
+@media (prefers-reduced-motion: reduce){
+  .ticker .track{animation:none}
+  .ticker .items{overflow-x:auto}
+}
+@media (max-width:767px){ .ticker .track{padding:9px 0; animation-duration:45s} }
