@@ -232,6 +232,7 @@ td.when{font-weight:800; color:var(--brand); white-space:nowrap; font-variant-nu
 .foot .links{display:flex; gap:16px; flex-wrap:wrap; margin-top:8px; font-weight:700; color:var(--ink-2)}
 .foot .links a{text-decoration:none}
 .foot .links a:hover{color:var(--brand)}
+.foot .build{margin-top:14px; padding-top:10px; border-top:1px solid var(--rule-2); font-size:12px; color:var(--ink-3); opacity:.8}
 
 /* ===== מובייל — נמדד מול ynet ב-375px (31.08) ===== */
 @media (max-width:767px){
