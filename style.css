@@ -1,350 +1,273 @@
-
+/* הבינה — עיצוב האתר · v2 (02.09.2026)
+   בהיר כברירת מחדל (החלטת אמיר). כהה רק ב-data-theme="dark".
+   הפלטה נמדדה מכרטיסי הבוקר של הקהילה (#c13a64 / #e15b84) — מתחלפת בדקות כשיגיעו נכסי ברנד. */
 html{color-scheme: only light}
 html[data-theme="dark"]{color-scheme: dark}
 :root{
-  --ink:#111318; --ink-2:#3a4049; --ink-3:#6d727a;
-  --bg:#f2f3f5; --card:#ffffff; --rule:#d8dadd; --rule-2:#e8eaec;
-  --red:#c31e17; --red-dark:#9c1812; --red-soft:#fbeae9;
-  --find:#1c4d68; --find-soft:#e7eff4;
-  --claim:#7a5a11; --claim-soft:#f6efdb;
+  --ink:#1c1a17; --ink-2:#44413d; --ink-3:#77736e;
+  --bg:#f7f6f4; --card:#ffffff; --rule:#e6e3df; --rule-2:#efedea;
+  --brand:#c13a64; --brand-2:#e15b84; --brand-soft:#fdf0f4; --brand-ink:#8f2448;
+  --find:#1c4d68; --find-soft:#e9f1f6;
+  --claim:#7a5a11; --claim-soft:#f8f1dc;
   --doc:#1f5c38; --doc-soft:#e8f2ec;
-  --pend:#8a2f6b; --pend-soft:#f6e8f1;
-  --tileA:#20364a; --tileB:#5f2321; --tileC:#1f4634;
+  --rep:#8a2f6b; --rep-soft:#f6e8f1;
+  --pend:#6b6b6b; --pend-soft:#f0f0f0;
+  --r:12px; --r-s:8px;
+  --shadow:0 1px 2px rgba(28,26,23,.05), 0 6px 20px rgba(28,26,23,.05);
 }
-/* בהיר כברירת מחדל (החלטת אמיר) — כהה רק בבחירה מפורשת */
+:root[data-theme="dark"]{
+  --ink:#ece9e4; --ink-2:#bdb8b1; --ink-3:#8d8882;
+  --bg:#141416; --card:#1d1d20; --rule:#2e2e33; --rule-2:#26262b;
+  --brand:#ef7aa0; --brand-2:#f39ab8; --brand-soft:#2a1a20; --brand-ink:#f3b3c8;
+  --find:#8cc1dd; --find-soft:#17262e;
+  --claim:#dcb862; --claim-soft:#2a2414;
+  --doc:#84c7a0; --doc-soft:#18261f;
+  --rep:#d79ac3; --rep-soft:#2a1a25;
+  --pend:#a9a9a9; --pend-soft:#262626;
+  --shadow:none;
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0; direction:rtl; background:var(--bg); color:var(--ink);
-  font-family:"Heebo",system-ui,sans-serif; font-size:14.5px; line-height:1.55}
-.wrap{max-width:1150px; margin:0 auto; padding:0 16px 60px}
+  font-family:"Heebo",system-ui,-apple-system,"Segoe UI",sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased}
 a{color:inherit; text-decoration:none}
-a:focus-visible{outline:2px solid var(--red); outline-offset:2px}
+a:focus-visible{outline:2px solid var(--brand); outline-offset:2px; border-radius:4px}
 p{margin:0}
+img{max-width:100%; height:auto}
+.wrap{max-width:1120px; margin:0 auto; padding:0 20px 56px}
 
+/* ===== ראש האתר ===== */
+.top{background:var(--card); border-bottom:1px solid var(--rule)}
+.masthead{max-width:1120px; margin:0 auto; padding:18px 20px 12px; display:flex; align-items:flex-end;
+  justify-content:space-between; gap:16px; position:relative}
+.masthead .brand{display:flex; align-items:baseline; gap:14px}
+.masthead .name{font-family:"Frank Ruhl Libre",Georgia,serif; font-weight:900; font-size:44px; line-height:.9;
+  letter-spacing:-.02em; color:var(--brand)}
+.masthead .tag-line{font-size:13px; color:var(--ink-3); font-weight:500}
+.masthead .issue{font-size:13px; color:var(--ink-3); font-weight:600; text-align:left; line-height:1.4}
+.theme-btn{border:1px solid var(--rule); background:var(--card); color:var(--ink); border-radius:50%;
+  width:34px; height:34px; font-size:15px; line-height:1; cursor:pointer; display:flex; align-items:center;
+  justify-content:center; flex:none}
+.theme-btn:hover{border-color:var(--brand); color:var(--brand)}
+.navbar{position:sticky; top:0; z-index:50; background:var(--card); border-bottom:3px solid var(--brand)}
+.navrow{max-width:1120px; margin:0 auto; padding:0 12px; display:flex; align-items:center; gap:2px;
+  overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch}
+.navrow::-webkit-scrollbar{display:none}
+.navrow a{padding:12px 14px; font-size:15px; font-weight:800; color:var(--ink); white-space:nowrap;
+  border-bottom:3px solid transparent; margin-bottom:-3px}
+.navrow a:hover{color:var(--brand)}
+.navrow a.on{color:var(--brand); border-bottom-color:var(--brand)}
+.navrow .home{font-family:"Frank Ruhl Libre",Georgia,serif; font-weight:900; font-size:22px; color:var(--brand);
+  padding:6px 4px 8px 14px; display:none}
 
-/* ראש */
-.masthead{display:flex; align-items:center; justify-content:space-between; gap:14px;
-  flex-wrap:wrap; padding:12px 0 10px}
-.masthead .name{font-family:"Frank Ruhl Libre",Georgia,serif; font-weight:900;
-  font-size:clamp(34px,4.6vw,46px); line-height:.9; letter-spacing:-.02em; color:var(--red)}
-.masthead .meta{font-size:12px; color:var(--ink-3); font-weight:500; text-align:left; line-height:1.45}
-.navrow{display:flex; flex-wrap:wrap; background:var(--red); border-radius:2px;
-  font-size:13.5px; font-weight:800; margin-bottom:8px}
-.navrow a{padding:8px 15px; color:#fff}
-.navrow a:hover{background:var(--red-dark)}
-.legend{display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:11.5px;
-  color:var(--ink-3); padding:6px 2px 12px}
-.legend b{color:var(--ink-2); font-weight:800}
+/* ===== תגי מקור ===== */
+.tag{display:inline-block; font-size:11px; font-weight:800; letter-spacing:.02em; border-radius:999px;
+  padding:1px 8px; white-space:nowrap; vertical-align:2px; line-height:1.6; cursor:help; margin-inline-start:4px}
+.tag.find{background:var(--find-soft); color:var(--find)}
+.tag.claim{background:var(--claim-soft); color:var(--claim)}
+.tag.doc{background:var(--doc-soft); color:var(--doc)}
+.tag.rep{background:var(--rep-soft); color:var(--rep)}
+.tag.pend{background:var(--pend-soft); color:var(--pend)}
+.tag.mix{background:var(--find-soft); color:var(--find)}
 
-/* תגיות */
-.tag{display:inline-block; font-size:10px; font-weight:800; letter-spacing:.03em;
-  border-radius:2px; padding:0 6px; white-space:nowrap; vertical-align:2px; line-height:1.7}
-.tag.find{background:var(--find-soft); color:var(--find); border:1px solid var(--find)}
-.tag.claim{background:var(--claim-soft); color:var(--claim); border:1px solid var(--claim)}
-.tag.doc{background:var(--doc-soft); color:var(--doc); border:1px solid var(--doc)}
-.tag.rep{background:var(--red-soft); color:var(--red); border:1px solid var(--red)}
-.tag.pend{background:var(--pend-soft); color:var(--pend); border:1px solid var(--pend)}
+/* ===== קופסאות כלליות ===== */
+.card{background:var(--card); border:1px solid var(--rule); border-radius:var(--r); box-shadow:var(--shadow)}
+.kicker{font-size:12.5px; font-weight:800; letter-spacing:.06em; color:var(--brand); text-transform:none; margin-bottom:8px}
+.more{color:var(--brand); font-weight:800; white-space:nowrap}
+.inlink{color:var(--find); font-weight:700; text-decoration:underline; text-underline-offset:3px}
 
-/* מבזקים */
-.ticker{display:flex; background:var(--card); border:1px solid var(--rule); border-radius:2px;
-  margin-bottom:14px; overflow:hidden}
-.ticker .lbl{background:var(--red); color:#fff; font-weight:900; font-size:12.5px;
-  display:flex; align-items:center; padding:7px 12px; white-space:nowrap}
-.ticker .items{padding:7px 12px; font-size:12.8px; color:var(--ink-2);
-  overflow-x:auto; white-space:nowrap; scrollbar-width:thin}
-.ticker .items b{color:var(--ink)}
-.ticker .items .dot{color:var(--red); margin:0 7px; font-weight:900}
-
-/* אריחים ויזואליים */
-.tile{border-radius:2px; color:#fff; display:flex; flex-direction:column;
-  justify-content:flex-end; padding:10px 12px; min-height:120px; position:relative; overflow:hidden}
-.tile .big{font-weight:900; font-size:clamp(26px,3.2vw,38px); line-height:1; font-variant-numeric:tabular-nums}
-.tile .cap{font-size:11px; font-weight:700; opacity:.85; margin-top:3px}
-.tile.a{background:linear-gradient(160deg,var(--tileA),#0d1722)}
-.tile.b{background:linear-gradient(160deg,var(--tileB),#2a0f0d)}
-.tile.c{background:linear-gradient(160deg,var(--tileC),#0e211a)}
-.tile::before{content:""; position:absolute; inset-inline-end:-30px; top:-30px; width:110px; height:110px;
-  border-radius:50%; background:rgba(255,255,255,.07)}
-.tile-note{font-size:10.5px; color:var(--ink-3); margin-top:4px}
-
-/* פתיחה */
-.lead-grid{display:grid; grid-template-columns:1.7fr 1fr; gap:12px; margin-bottom:12px}
-@media (max-width:880px){.lead-grid{grid-template-columns:1fr}}
-.lead{background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:16px 18px; display:block}
-.lead .tile{min-height:150px; margin-bottom:12px}
-.kicker{font-size:11.5px; font-weight:900; letter-spacing:.1em; color:var(--red); margin-bottom:7px}
-.lead h1{font-weight:900; margin:0 0 9px; font-size:clamp(24px,3.6vw,34px);
-  line-height:1.16; letter-spacing:-.01em; text-wrap:balance}
-.lead .standfirst{font-size:15px; line-height:1.55; color:var(--ink-2)}
-.lead .standfirst b{color:var(--ink)}
-.byrow{display:flex; gap:12px; flex-wrap:wrap; margin-top:11px; padding-top:9px;
-  border-top:1px solid var(--rule-2); font-size:12px; color:var(--ink-3); font-weight:500}
+/* ===== שער — פתיחה ===== */
+.hero{margin-top:22px; display:grid; grid-template-columns:1.55fr 1fr; grid-template-areas:'lead five' 'you five'; gap:18px; align-items:start}
+.hero .lead{grid-area:lead} .hero .five{grid-area:five} .hero .you{grid-area:you}
+@media (max-width:900px){.hero{grid-template-columns:1fr; grid-template-areas:'lead' 'five' 'you'}}
+.lead{padding:26px 28px; display:flex; flex-direction:column}
+.lead h1{font-weight:900; margin:0 0 12px; font-size:clamp(27px,3.4vw,38px); line-height:1.15; letter-spacing:-.01em; text-wrap:balance}
+.lead .standfirst{font-size:17px; line-height:1.6; color:var(--ink-2)}
+.lead .standfirst strong,.lead .standfirst b{color:var(--ink)}
+.byrow{display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:auto; padding-top:14px;
+  font-size:13.5px; color:var(--ink-3)}
 .byrow b{color:var(--ink-2)}
-.more{color:var(--red); font-weight:800}
-.lead:hover h1, .art:hover h3{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px}
+.byrow .role{color:var(--ink-3); font-weight:500}
+.lead:hover h1{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; text-decoration-color:var(--brand)}
 
-.sidecol{display:flex; flex-direction:column; gap:12px}
-.five{background:var(--card); border:1px solid var(--rule); border-top:4px solid var(--red);
-  border-radius:2px; padding:12px 14px}
-.five h2{font-size:14px; font-weight:900; margin:0 0 8px}
+.five{padding:18px 20px; border-top:5px solid var(--brand)}
+.five h2{font-size:17px; font-weight:900; margin:0 0 4px}
+.five .sub{font-size:13px; color:var(--ink-3); margin-bottom:10px}
 .five ol{margin:0; padding:0; list-style:none; counter-reset:f}
-.five li{counter-increment:f; display:grid; grid-template-columns:22px 1fr; gap:8px;
-  padding:7px 0; border-top:1px solid var(--rule-2); font-size:12.8px; line-height:1.45}
+.five li{counter-increment:f; display:grid; grid-template-columns:28px 1fr; gap:10px; padding:10px 0;
+  border-top:1px solid var(--rule-2); font-size:14.5px; line-height:1.5}
 .five li:first-child{border-top:none; padding-top:0}
-.five li::before{content:counter(f); font-weight:900; font-size:15px; color:var(--red);
-  font-variant-numeric:tabular-nums}
 .five li>span{display:block}
-.five b{font-weight:800}
+.five li::before{content:counter(f); font-weight:900; font-size:22px; line-height:1; color:var(--brand); font-variant-numeric:tabular-nums}
+.five li b,.five li strong{font-weight:800}
+.five li .more{display:inline-block; margin-inline-start:4px; font-size:13px}
 
-.you{background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:12px 14px}
-.you h2{font-size:14px; font-weight:900; margin:0 0 8px}
-.you .cell{padding:7px 0; border-top:1px solid var(--rule-2); font-size:12.6px; line-height:1.45; color:var(--ink-2)}
+.you{padding:18px 20px}
+.you h2{font-size:17px; font-weight:900; margin:0 0 4px}
+.you .sub{font-size:13px; color:var(--ink-3); margin-bottom:10px}
+.you .cell{padding:9px 0; border-top:1px solid var(--rule-2); font-size:14.5px; line-height:1.5; color:var(--ink-2)}
 .you .cell:first-of-type{border-top:none; padding-top:0}
-.you .cell b{color:var(--ink)}
+.you .cell b,.you .cell strong{color:var(--ink)}
 
-/* כותרות מדור */
-.sec{display:flex; align-items:baseline; gap:12px; margin:20px 0 10px; flex-wrap:wrap}
-.sec h2{font-size:19px; font-weight:900; margin:0; color:var(--red); white-space:nowrap}
-.sec .sub{font-size:12px; color:var(--ink-3)}
-.sec::after{content:""; flex:1; height:3px; background:var(--red); align-self:center; min-width:40px}
+/* ===== כותרת מדור ===== */
+.sec{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:34px 0 14px}
+.sec h2{font-size:22px; font-weight:900; margin:0; color:var(--ink)}
+.sec h2 a:hover{color:var(--brand)}
+.sec .sub{font-size:14px; color:var(--ink-3)}
+.sec .all{font-size:14px; font-weight:800; color:var(--brand); white-space:nowrap}
 
-/* כרטיסי כתבות */
-.arts{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-@media (max-width:900px){.arts{grid-template-columns:1fr}}
-.art{background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:12px 14px;
-  display:flex; flex-direction:column; gap:7px}
-.art .tile{min-height:92px}
-.art .slot{font-size:10.5px; font-weight:900; letter-spacing:.1em; color:var(--red)}
-.art h3{font-size:16.5px; font-weight:800; line-height:1.28; margin:0; text-wrap:balance}
-.art p{font-size:12.7px; line-height:1.5; color:var(--ink-2)}
-.art .foot{margin-top:auto; padding-top:8px; border-top:1px solid var(--rule-2);
-  font-size:11.5px; color:var(--ink-3); display:flex; justify-content:space-between; gap:8px}
+/* ===== כרטיסי כתבות ("עוד בחדשות") ===== */
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media (max-width:900px){.grid3{grid-template-columns:1fr}}
+.art{padding:18px 20px; display:flex; flex-direction:column; gap:8px; transition:transform .15s ease, box-shadow .15s ease}
+.art:hover{transform:translateY(-2px); box-shadow:0 10px 28px rgba(28,26,23,.09)}
+.art:hover h3{color:var(--brand)}
+.art .slot{font-size:12.5px; font-weight:800; letter-spacing:.05em; color:var(--brand)}
+.art h3{font-size:19px; font-weight:800; line-height:1.3; margin:0; text-wrap:balance}
+.art p{font-size:15px; line-height:1.55; color:var(--ink-2)}
+.art .foot{margin-top:auto; padding-top:10px; border-top:1px solid var(--rule-2); font-size:13px; color:var(--ink-3);
+  display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap}
+.art .foot b{color:var(--ink-2); font-weight:700}
 
-/* דייג'סט */
-.digest{display:grid; grid-template-columns:1fr 1fr; gap:0 24px;
-  background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:4px 16px}
-@media (max-width:800px){.digest{grid-template-columns:1fr}}
-.d-item{display:grid; grid-template-columns:58px 1fr; gap:10px; padding:9px 0;
-  border-bottom:1px solid var(--rule-2); font-size:12.9px; line-height:1.48}
-.d-item .dt{font-weight:900; color:var(--red); font-size:12px; font-variant-numeric:tabular-nums; padding-top:1px}
-.d-item b{font-weight:800}
-.d-item span.txt{color:var(--ink-2)}
+/* ===== ציר הזמן ===== */
+.page-head{margin:28px 0 6px}
+.page-head h1{font-size:clamp(28px,3.6vw,40px); font-weight:900; margin:0 0 6px; line-height:1.15}
+.page-head .intro{font-size:17px; color:var(--ink-2); max-width:70ch; line-height:1.6}
+.tl{padding:6px 24px; margin-top:16px}
+.tl-row{display:grid; grid-template-columns:86px 1fr; gap:14px; padding:14px 0; border-top:1px solid var(--rule-2); font-size:16px; line-height:1.6}
+.tl-row:first-child{border-top:none}
+.tl-date{font-weight:900; color:var(--brand); font-variant-numeric:tabular-nums; font-size:15px; padding-top:2px; white-space:nowrap; direction:ltr; unicode-bidi:isolate; text-align:right}
+.tl-txt{color:var(--ink-2)}
+.tl-txt strong,.tl-txt b{color:var(--ink); font-weight:800}
+.tl-txt em{color:var(--ink-3)}
 
-/* הכסף */
-.money-note{font-size:11.5px; color:var(--pend); font-weight:700; margin-bottom:8px}
-.money-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:12px}
-@media (max-width:900px){.money-grid{grid-template-columns:1fr}}
-.m-card{background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:12px 14px}
-.m-card .tile{min-height:84px; margin-bottom:9px}
-.m-card h3{font-size:14.5px; font-weight:800; line-height:1.32; margin:0 0 6px; text-wrap:balance}
-.m-card p{font-size:12.4px; line-height:1.5; color:var(--ink-2)}
-.m-list{grid-column:1/-1; background:var(--card); border:1px solid var(--rule); border-radius:2px;
-  padding:2px 16px; display:grid; grid-template-columns:1fr 1fr; gap:0 24px}
-@media (max-width:800px){.m-list{grid-template-columns:1fr}}
-.inlink{color:var(--find); font-weight:700; text-decoration:underline; text-underline-offset:2px}
-
-/* מעניין לדעת */
-.fun{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-@media (max-width:900px){.fun{grid-template-columns:1fr 1fr}}
-@media (max-width:620px){.fun{grid-template-columns:1fr}}
-.f-card{background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:11px 13px}
-.f-card h3{font-size:13.8px; font-weight:800; line-height:1.35; margin:0 0 5px}
-.f-card p{font-size:12.2px; line-height:1.5; color:var(--ink-2)}
-
-/* לא ידוע + למעקב */
-.bottom{display:grid; grid-template-columns:1.2fr 1fr; gap:12px; margin-top:20px}
-@media (max-width:900px){.bottom{grid-template-columns:1fr}}
-.unknown{background:var(--claim-soft); border:1px solid var(--claim); border-radius:2px; padding:13px 15px}
-.unknown h3{font-size:14px; font-weight:900; color:var(--claim); margin:0 0 8px}
-.unknown p{font-size:12.6px; line-height:1.55; color:var(--ink-2); margin-bottom:8px}
-.unknown p:last-child{margin-bottom:0}
-.unknown b{color:var(--ink)}
-.watch{background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:13px 15px}
-.watch h3{font-size:14px; font-weight:900; margin:0 0 8px}
-.watch .row{display:grid; grid-template-columns:1fr 74px; gap:8px; padding:7px 0;
-  border-top:1px solid var(--rule-2); font-size:12.4px; line-height:1.4}
-.watch .row:first-of-type{border-top:none}
-.watch .row .when{font-weight:800; color:var(--red); text-align:left; font-variant-numeric:tabular-nums}
-.watch .open-note{font-size:11.8px; color:var(--ink-3); margin-top:8px; line-height:1.5}
-
-/* ===== הכתבות במלואן ===== */
-.fullhead{margin-top:28px; background:var(--red); color:#fff; border-radius:2px; padding:10px 16px;
-  display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:baseline}
-.fullhead h2{font-size:18px; font-weight:900; margin:0}
-.fullhead span{font-size:12px; opacity:.9}
-.article{background:var(--card); border:1px solid var(--rule); border-radius:2px;
-  margin-top:14px; padding:20px 24px; scroll-margin-top:12px; max-width:920px}
-.article .slot{font-size:11px; font-weight:900; letter-spacing:.12em; color:var(--red); margin-bottom:8px}
-.article h2{font-size:clamp(21px,3vw,28px); line-height:1.2; font-weight:900; margin:0 0 10px; text-wrap:balance}
-.article p{margin:0 0 12px; font-size:14.3px; line-height:1.66; max-width:74ch}
-.byline{font-size:12.5px; color:var(--ink-3); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--rule-2)}
-.frame{font-size:14.5px; line-height:1.58; color:var(--ink-2); background:var(--bg);
-  border:1px solid var(--rule-2); border-radius:2px; padding:12px 14px; margin:0 0 16px; max-width:74ch}
-.frame b{color:var(--ink)}
-h3.sub{font-size:16.5px; font-weight:800; margin:20px 0 8px; line-height:1.35}
-h4.min{font-size:14px; font-weight:800; margin:16px 0 6px; color:var(--ink-2)}
-em{font-style:italic; color:var(--ink-2)}
-.pull{font-size:17.5px; line-height:1.45; font-weight:800; color:var(--ink);
-  border-inline-start:4px solid var(--red); padding:3px 16px; margin:18px 0; max-width:70ch}
-.note{font-size:12.8px; color:var(--ink-3); line-height:1.55; font-style:italic}
-.src{font-size:10.5px; font-weight:800; letter-spacing:.03em;
-  padding:0 6px; border-radius:2px; white-space:nowrap; display:inline-block; line-height:1.7}
-.src.find{background:var(--find-soft); color:var(--find); border:1px solid var(--find)}
-.src.claim{background:var(--claim-soft); color:var(--claim); border:1px solid var(--claim)}
-.src.unk{background:var(--red-soft); color:var(--red); border:1px solid var(--red)}
-ul.tight{margin:0 0 12px; padding-inline-start:20px; max-width:74ch}
-ul.tight li{margin-bottom:6px; line-height:1.6; font-size:13.8px}
-.box{border:1px solid var(--rule); border-inline-start:4px solid var(--find);
-  background:var(--find-soft); padding:14px 16px; margin:16px 0; border-radius:2px; max-width:78ch}
-.box h3{margin:0 0 8px; font-size:14.5px; font-weight:900; color:var(--find)}
-.box p{margin-bottom:10px; font-size:13.6px}
+/* ===== קופסאות טקסט ===== */
+.box{border:1px solid var(--rule); border-inline-start:5px solid var(--find); background:var(--find-soft);
+  padding:18px 20px; margin:18px 0; border-radius:var(--r); max-width:80ch}
+.box h3{margin:0 0 8px; font-size:17px; font-weight:900; color:var(--find)}
+.box p{margin-bottom:10px; font-size:15.5px; line-height:1.6}
 .box p:last-child{margin-bottom:0}
 .box.warn{border-inline-start-color:var(--claim); background:var(--claim-soft)}
 .box.warn h3{color:var(--claim)}
-.box.plain{background:var(--bg); border-inline-start-color:var(--rule)}
+.box.plain{background:var(--card); border-inline-start-color:var(--rule)}
 .box.plain h3{color:var(--ink)}
-.tblwrap{overflow-x:auto; margin:14px 0; border:1px solid var(--rule); border-radius:2px}
-table{border-collapse:collapse; width:100%; font-size:13px; min-width:520px}
-th,td{text-align:start; padding:8px 11px; border-bottom:1px solid var(--rule-2); vertical-align:top; line-height:1.5}
-th{background:var(--bg); font-weight:800; font-size:12px; color:var(--ink-2)}
+.box.brand{background:var(--brand-soft); border-inline-start-color:var(--brand)}
+.box.brand h3{color:var(--brand-ink)}
+
+/* ===== כלכלה ===== */
+.eco-lead{padding:22px 24px; display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center; margin-top:16px}
+@media (max-width:700px){.eco-lead{grid-template-columns:1fr}}
+.eco-lead .num{font-size:clamp(40px,6vw,64px); font-weight:900; color:var(--brand); line-height:1; font-variant-numeric:tabular-nums; white-space:nowrap}
+.eco-lead .num small{display:block; font-size:14px; color:var(--ink-3); font-weight:600; margin-top:6px; white-space:normal}
+.eco-lead h2{font-size:21px; font-weight:800; margin:0 0 8px; line-height:1.3}
+.eco-lead p{font-size:15.5px; color:var(--ink-2); line-height:1.6}
+
+/* ===== הבטחות ===== */
+.tblwrap{overflow-x:auto; margin:16px 0; border:1px solid var(--rule); border-radius:var(--r); background:var(--card)}
+table{border-collapse:collapse; width:100%; font-size:15px; min-width:560px}
+th,td{text-align:start; padding:12px 14px; border-bottom:1px solid var(--rule-2); vertical-align:top; line-height:1.5}
+th{background:var(--bg); font-weight:800; font-size:13.5px; color:var(--ink-2)}
 tr:last-child td{border-bottom:none}
-code{font-family:ui-monospace,monospace; font-size:.9em; background:var(--bg); padding:0 4px; border-radius:2px}
-.toplink{display:inline-block; margin-top:10px; font-size:12px; font-weight:800; color:var(--red)}
+td.when{font-weight:800; color:var(--brand); white-space:nowrap; font-variant-numeric:tabular-nums}
+.status{display:inline-block; font-size:12px; font-weight:800; border-radius:999px; padding:1px 9px; white-space:nowrap}
+.status.open{background:var(--claim-soft); color:var(--claim)}
+.status.done{background:var(--doc-soft); color:var(--doc)}
+.status.part{background:var(--find-soft); color:var(--find)}
 
-.colophon{border-top:3px solid var(--red); margin-top:28px; padding-top:12px;
-  font-size:12.2px; color:var(--ink-3); line-height:1.65}
-.colophon b{color:var(--ink-2)}
-.cardstrip{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:0 0 12px}
-@media (max-width:900px){.cardstrip{grid-template-columns:1fr 1fr}}
-.cardstrip figure{margin:0; background:var(--card); border:1px solid var(--rule); border-radius:2px; padding:7px}
-.cardstrip img{width:100%; height:auto; display:block; border:1px solid var(--rule-2)}
-.cardstrip figcaption{font-size:10.8px; color:var(--ink-3); margin-top:5px; line-height:1.4}
-.cardthumb{width:100%; height:auto; display:block; border:1px solid var(--rule-2); border-radius:2px; margin-bottom:9px}
+/* ===== עמוד כתבה ===== */
+.article{max-width:760px; margin:26px auto 0; padding:0 4px}
+.article .slot{font-size:13px; font-weight:800; letter-spacing:.05em; color:var(--brand); margin-bottom:10px}
+.article h1{font-size:clamp(27px,3.6vw,40px); line-height:1.18; font-weight:900; margin:0 0 14px; text-wrap:balance}
+.article .byline{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  font-size:14px; color:var(--ink-3); margin-bottom:22px; padding-bottom:14px; border-bottom:1px solid var(--rule)}
+.article .byline b{color:var(--ink); font-weight:800}
+.article .byline .role{color:var(--ink-3)}
+.listen{border:1px solid var(--brand); background:var(--card); color:var(--brand); border-radius:999px; padding:7px 14px;
+  font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; gap:6px}
+.listen:hover{background:var(--brand-soft)}
+.listen[disabled]{opacity:.5; cursor:default}
+.article p{margin:0 0 16px; font-size:17.5px; line-height:1.7}
+.article .frame{font-size:16.5px; line-height:1.6; color:var(--ink-2); background:var(--brand-soft);
+  border-radius:var(--r); padding:16px 18px; margin:0 0 22px}
+.article .frame b{color:var(--ink)}
+.article h3.sub{font-size:22px; font-weight:800; margin:30px 0 10px; line-height:1.3}
+.article h4.min{font-size:18px; font-weight:800; margin:22px 0 8px; color:var(--ink-2)}
+.article em{font-style:italic; color:var(--ink-2)}
+.article .pull{font-size:22px; line-height:1.4; font-weight:800; color:var(--ink); border-inline-start:5px solid var(--brand);
+  padding:6px 20px; margin:26px 0}
+.article .note{font-size:15px; color:var(--ink-3); line-height:1.6; font-style:italic}
+.article ul.tight{margin:0 0 16px; padding-inline-start:22px}
+.article ul.tight li{margin-bottom:8px; line-height:1.65; font-size:17px}
+.article code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.88em; background:var(--bg); padding:1px 5px; border-radius:4px}
+.article .src{font-size:12px; font-weight:800; padding:1px 8px; border-radius:999px; white-space:nowrap; display:inline-block}
+.article .src.claim{background:var(--claim-soft); color:var(--claim)}
+.article .src.find{background:var(--find-soft); color:var(--find)}
+.share-row{max-width:760px; margin:28px auto 0; padding:16px 4px 0; border-top:1px solid var(--rule); font-size:14px; color:var(--ink-3)}
 
-/* ===== מובייל — עיצוב נפרד, לא כיווץ ===== */
+/* ===== עוד בגיליון (בסוף עמוד) ===== */
+.more-sec{max-width:1120px; margin:40px auto 0}
+.more-sec h2{font-size:20px; font-weight:900; margin:0 0 12px}
+
+/* ===== אודות ===== */
+.legend-list{list-style:none; padding:0; margin:12px 0 0; display:grid; gap:10px}
+.legend-list li{display:grid; grid-template-columns:110px 1fr; gap:12px; align-items:start; font-size:16px; line-height:1.55; color:var(--ink-2)}
+.team{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:12px}
+.team .p{padding:14px 16px}
+.team .p b{display:block; font-size:16px; color:var(--ink)}
+.team .p span{font-size:14px; color:var(--ink-3)}
+.prose{max-width:76ch}
+.prose p{font-size:16.5px; line-height:1.65; margin:0 0 14px; color:var(--ink-2)}
+.prose p strong{color:var(--ink)}
+.prose ul{padding-inline-start:22px; margin:0 0 14px}
+.prose li{font-size:16px; line-height:1.6; margin-bottom:8px; color:var(--ink-2)}
+.prose li strong{color:var(--ink)}
+.prose h2{font-size:22px; font-weight:900; margin:28px 0 10px}
+
+/* ===== תחתית ===== */
+.foot{border-top:1px solid var(--rule); margin-top:48px; padding:22px 0 0; font-size:14px; color:var(--ink-3); line-height:1.65}
+.foot .name{font-family:"Frank Ruhl Libre",Georgia,serif; font-weight:900; font-size:26px; color:var(--brand); margin-bottom:6px}
+.foot a{text-decoration:underline; text-underline-offset:3px}
+.foot .links{display:flex; gap:16px; flex-wrap:wrap; margin-top:8px; font-weight:700; color:var(--ink-2)}
+.foot .links a{text-decoration:none}
+.foot .links a:hover{color:var(--brand)}
+
+/* ===== מובייל — נמדד מול ynet ב-375px (31.08) ===== */
 @media (max-width:767px){
-  body{font-size:16px; line-height:1.6}
-  .wrap{padding:0 12px 44px}
-
-  /* לוגו ממורכז כמו ynet */
-  .masthead{flex-direction:column; align-items:center; text-align:center; gap:2px; padding:10px 0 6px}
-  .masthead .name{font-size:36px}
-  .masthead .meta{font-size:11px; text-align:center}
-
-  /* ניווט: פס לבן דביק, טקסט כהה, קו אדום — כמו ynet */
-  .navrow{position:sticky; top:0; z-index:50; flex-wrap:nowrap; overflow-x:auto;
-    -webkit-overflow-scrolling:touch; scrollbar-width:none; font-size:15px;
-    background:var(--card); border-bottom:2px solid var(--red); border-radius:0}
-  .navrow::-webkit-scrollbar{display:none}
-  .navrow a{padding:11px 14px; white-space:nowrap; color:var(--ink)}
-  .navrow a:hover{background:transparent; color:var(--red)}
-
-  /* מקרא: שורה אחת קומפקטית בגלילה אופקית */
-  .legend{flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; scrollbar-width:none;
-    font-size:11px; padding:6px 2px 10px; gap:6px}
-  .legend::-webkit-scrollbar{display:none}
-
-  .ticker .lbl{font-size:13px}
-  .ticker .items{font-size:14px; padding:9px 12px}
-  .tag,.src{font-size:11px}
-
-  /* פתיחה */
-  .kicker{font-size:12.5px}
-  .lead{padding:14px}
-  .lead h1{font-size:27px; line-height:1.22}
-  .lead .standfirst{font-size:16px}
+  body{font-size:16px}
+  .wrap{padding:0 14px 44px}
+  .masthead{flex-direction:column; align-items:center; text-align:center; gap:4px; padding:12px 14px 8px}
+  .masthead .brand{flex-direction:column; align-items:center; gap:2px}
+  .masthead .name{font-size:38px}
+  .masthead .issue{text-align:center; font-size:12px}
+  .masthead .theme-btn{position:absolute; inset-inline-end:12px; top:12px}
+  .navrow a{padding:12px 13px; font-size:15px}
+  .hero{margin-top:14px; gap:14px}
+  .lead{padding:18px 16px}
+  .lead h1{font-size:25.5px; line-height:1.22}
+  .lead .standfirst{font-size:16.5px}
   .byrow{font-size:13px}
-  .five h2,.you h2,.watch h3,.unknown h3{font-size:17px}
-  .five li{font-size:15px; grid-template-columns:26px 1fr}
-  .five li::before{font-size:17px}
-  .you .cell{font-size:15px}
-
-  /* כותרת מדור: פס אדום מלא עם טקסט לבן — כמו ynet */
-  .sec{background:var(--red); border-radius:2px; padding:8px 12px; margin:22px 0 10px; gap:8px}
-  .sec::after{display:none}
-  .sec h2{font-size:19px; color:#fff}
-  .sec .sub{font-size:12.5px; color:rgba(255,255,255,.88)}
-  .art{padding:14px}
-  .art .slot{font-size:12px}
+  .five,.you{padding:14px 16px}
+  .five h2,.you h2{font-size:18px}
+  .five li{font-size:15.5px}
+  .sec{margin:26px 0 12px; flex-direction:column; align-items:flex-start; gap:2px}
+  .sec h2{font-size:21px}
+  .sec .sub{font-size:13px}
+  .art{padding:16px}
   .art h3{font-size:20px}
-  .art p{font-size:15px}
-  .art .foot{font-size:13px}
-  .d-item{font-size:15px; grid-template-columns:52px 1fr}
-  .d-item .dt{font-size:13px}
-  .money-note{font-size:13px}
-  .m-card h3{font-size:18px}
-  .m-card p{font-size:14.5px}
-  .fun{grid-template-columns:1fr}
-  .f-card h3{font-size:17px}
-  .f-card p{font-size:14.5px}
-  .watch .row{font-size:14.5px}
-  .watch .open-note{font-size:13px}
-  .unknown p{font-size:14.5px}
-  .tile-note{font-size:12px}
-  .tile .cap{font-size:12px}
-
-  /* הכתבות במלואן */
-  .fullhead h2{font-size:19px}
-  .article{padding:16px 14px}
-  .article h2{font-size:25px; line-height:1.25}
-  .article p{font-size:16px; line-height:1.72}
-  .byline{font-size:13.5px}
-  .frame{font-size:15px; padding:11px 12px}
-  h3.sub{font-size:19px}
-  h4.min{font-size:16px}
-  .pull{font-size:18px; padding:3px 12px}
-  ul.tight li{font-size:15.5px}
-  .box h3{font-size:16px}
-  .box p{font-size:14.8px}
-  table{font-size:14px}
-  .note{font-size:13.5px}
-  .toplink{font-size:14px; padding:6px 0}
-  .colophon{font-size:13.5px}
-  .cardstrip figcaption{font-size:12px}
+  .tl{padding:2px 16px}
+  .tl-row{grid-template-columns:64px 1fr; gap:10px; font-size:15.5px}
+  .tl-date{font-size:13.5px}
+  .page-head h1{font-size:28px}
+  .page-head .intro{font-size:16px}
+  .article{margin-top:18px}
+  .article h1{font-size:26px; line-height:1.22}
+  .article p{font-size:17px; line-height:1.68}
+  .article h3.sub{font-size:20px}
+  .article .pull{font-size:19px; padding:4px 14px}
+  .article ul.tight li{font-size:16.5px}
+  .box{padding:14px 16px}
+  .eco-lead{padding:18px}
+  .legend-list li{grid-template-columns:1fr; gap:4px}
 }
-
-/* ===== עמוד כתבה (אתר) ===== */
-.sitebar{background:var(--card); border-bottom:2px solid var(--red); position:sticky; top:0; z-index:60;
-  display:flex; align-items:center; justify-content:space-between; padding:8px 14px}
-.sitebar .logo{font-family:"Frank Ruhl Libre",Georgia,serif; font-weight:900; font-size:26px; color:var(--red); line-height:1}
-.sitebar .back{font-size:14px; font-weight:800; color:var(--ink)}
-.artpage .article{max-width:760px; margin:14px auto 0; border:none; background:var(--card)}
-@media (max-width:767px){
-  .artpage .article p{font-size:17px; line-height:1.68}
-  .artpage .article h2{font-size:26px}
-}
-
-/* מבזקים רצים */
-.ticker .items{overflow:hidden; padding:0}
-.ticker .track{display:inline-block; white-space:nowrap; padding:7px 0; will-change:transform;
-  animation:tickmove 55s linear infinite}
-.ticker:hover .track,.ticker:active .track{animation-play-state:paused}
-.ticker .track a{padding:0 2px}
-.ticker .track a:hover b{text-decoration:underline}
-@keyframes tickmove{from{transform:translateX(0)}to{transform:translateX(50%)}}
-@media (prefers-reduced-motion: reduce){
-  .ticker .track{animation:none}
-  .ticker .items{overflow-x:auto}
-}
-@media (max-width:767px){ .ticker .track{padding:9px 0; animation-duration:45s} }
-
-/* כהה — רק בבחירה מפורשת של הקורא */
-:root[data-theme="dark"]{
-  --ink:#e9e7e2; --ink-2:#b7b3ac; --ink-3:#8b8781;
-  --bg:#131519; --card:#1b1e23; --rule:#33383f; --rule-2:#262b31;
-  --red:#e4685c; --red-dark:#c9584d; --red-soft:#2f1d1a;
-  --find:#7fb8d8; --find-soft:#17272f;
-  --claim:#d8b45f; --claim-soft:#292314;
-  --doc:#7cc39a; --doc-soft:#182620;
-  --pend:#d489bd; --pend-soft:#2b1a25;
-  --tileA:#27415a; --tileB:#6d2f2c; --tileC:#265542;
-}
-/* כפתור מצב תצוגה */
-.theme-btn{border:1px solid var(--rule); background:var(--card); color:var(--ink);
-  border-radius:50%; width:34px; height:34px; font-size:15px; line-height:1; cursor:pointer;
-  display:flex; align-items:center; justify-content:center; flex:none}
-.theme-btn:hover{border-color:var(--red); color:var(--red)}
-.masthead{position:relative}
-.masthead .theme-btn{position:absolute; inset-inline-end:0; top:14px}
-@media (max-width:767px){ .masthead .theme-btn{top:8px} }
